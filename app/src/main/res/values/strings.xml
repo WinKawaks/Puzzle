@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">金玉九连环</string>
+    <string name="studio">听香水榭工作室出品</string>
+    <string name="background_music">背景音乐</string>
+    <string name="start">开始</string>
+    <string name="setting">设置</string>
+    <string name="record">记录</string>
+    <string name="sound">游戏音效</string>
+    <string name="about_me">About Me</string>
+    <string name="introduction">北邮12级毕业生\nAndroid开发程序员\n非专业视觉设计师\n非专业产品设计师\n智玩爱好者\n\n声色犬马  水月镜花\n抚琴煮酒  仗剑天涯</string>
+    <string name="email">发送邮件至开发者</string>
+    <string name="mail_support_feedback_to">547137393@qq.com</string>
+    <string name="mail_support_feedback_subject">I\'ve something to tell you.</string>
+    <string name="go_back">返回主菜单</string>
+    <string name="go_on">继续</string>
+    <string name="exit_game">退出游戏？</string>
+    <string name="go_die">胜败乃兵家常事，大侠请重新来过...</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="default_time">88:88.88</string>
+    <string name="default_step">888</string>
+    <string name="time_title">破解用时为</string>
+    <string name="step_title">步数为</string>
+    <string name="no_record">暂无任何记录</string>
+    <string name="record_top_10">破解记录</string>
+    <string name="story">相传在距今2000多年前的秦朝\n秦始皇嬴政在预先为自己所修建的帝陵中\n埋藏了一柄由能工巧匠精心打造的金玉九连环\n用其锁住一箱秦始皇最为看重的宝物\n而当猎奇者一旦触碰到这柄金玉九连环\n只有在15分钟内完成破解 方可取出箱中宝物\n否则帝陵中的相关机括将在15分钟后被触发\n届时玉碎人亡
+    </string>
+</resources>
