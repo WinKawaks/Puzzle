@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import cn.xxx.winkawaks.puzzle.MyApplication;
 import cn.xxx.winkawaks.puzzle.R;
 import cn.xxx.winkawaks.puzzle.module.sound.BGMService;
 import cn.xxx.winkawaks.puzzle.module.utils.LaunchEmailUtil;
@@ -86,6 +87,9 @@ public class SettingActivity extends Activity implements View.OnClickListener, C
                 break;
             case R.id.checkbox_sound:
                 editor.putBoolean("sound", isChecked);
+                if (isChecked) {
+                    MyApplication.getSoundPool(getApplicationContext());
+                }
                 break;
         }
         editor.apply();
