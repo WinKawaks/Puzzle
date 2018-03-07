@@ -38,7 +38,7 @@ public class Dao extends SQLiteOpenHelper {
     private void createFavoriteNewsDB(SQLiteDatabase db) {
         String info_sql = "CREATE TABLE IF NOT EXISTS " + RECORD_TABLE_INFO + "("
             + RecordColumn.ID + " integer primary key AUTOINCREMENT,"
-            + RecordColumn.RECORD_TIME + " varchar(20)  default '',"
+            + RecordColumn.RECORD_TIME + " integer  default 0,"
             + RecordColumn.STEP + " varchar(10)  default '',"
             + RecordColumn.CREATE_TIME + " varchar(20)  default '')";
         try {

@@ -7,8 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.Toast;
@@ -231,21 +237,34 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
                 for (int i = 0; i < total - 1; i++) {
                     stringBuffer.append(getCapsInt(i));
                     stringBuffer.append(" " + getString(R.string.time_record));
-                    stringBuffer.append(TimeUtil.getTime(Long.parseLong(mContentSections.get(i).getRecord())));
+                    stringBuffer.append(TimeUtil.getTime(mContentSections.get(i).getRecord()));
                     stringBuffer.append(" " + getString(R.string.step_record));
                     stringBuffer.append(mContentSections.get(i).getStep());
-                    stringBuffer.append(" " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
+                    stringBuffer.append("\n");
+                    stringBuffer.append("     " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
                     stringBuffer.append("\n");
                 }
                 stringBuffer.append(getCapsInt(total - 1));
                 stringBuffer.append(" " + getString(R.string.time_record));
-                stringBuffer.append(TimeUtil.getTime(Long.parseLong(mContentSections.get(total - 1).getRecord())));
+                stringBuffer.append(TimeUtil.getTime(mContentSections.get(total - 1).getRecord()));
                 stringBuffer.append(" " + getString(R.string.step_record));
                 stringBuffer.append(mContentSections.get(total - 1).getStep());
-                stringBuffer.append(" " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
+                stringBuffer.append("\n");
+                stringBuffer.append("     " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
+
+                SpannableString spannableString = new SpannableString(stringBuffer);
+                int perLength = spannableString.length() / total + 1;
+                Log.i("WinKawake", String.valueOf(spannableString.length()));
+                for (int i = 0; i < total; i++) {
+                    spannableString.setSpan(new RelativeSizeSpan(0.8f), perLength * i + 25,
+                        perLength * i + 45, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(new StyleSpan(Typeface.ITALIC), perLength * i + 25,
+                        perLength * i + 45, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                }
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(R.string.record_top_10);
-                builder.setMessage(stringBuffer)
+                builder.setMessage(spannableString)
                     .setNegativeButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -5,15 +5,15 @@ package cn.xxx.winkawaks.puzzle.database;
  */
 
 public class RecordBean {
-    private String record;
+    private int record;
     private String step;
     private String currentTime;
 
-    public String getRecord() {
+    public int getRecord() {
         return record;
     }
 
-    public void setRecord(String record) {
+    public void setRecord(int record) {
         this.record = record;
     }
 

@@ -50,8 +50,8 @@ public class TimeUtil {
         return minute + ":" + second + "." + ms;
     }
 
-    public static long getMs(String time) {
-        long ms = 0;
+    public static int getMs(String time) {
+        int ms = 0;
         int m1 = Integer.parseInt(String.valueOf(time.charAt(0)));
         int m2 = Integer.parseInt(String.valueOf(time.charAt(1)));
         ms += (m1 * 10 + m2) * 60000;

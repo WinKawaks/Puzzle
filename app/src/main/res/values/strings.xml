@@ -27,6 +27,13 @@
     <string name="record_top_10">破解记录</string>
     <string name="challenge_success">挑战成功</string>
     <string name="challenge_failure">玉碎</string>
+    <string name="level_gold">【一贱封神】</string>
+    <string name="level_orange">【地表最强】</string>
+    <string name="level_green">【老司机范】</string>
+    <string name="level_purple">【霸气侧漏】</string>
+    <string name="level_blue">【速解高手】</string>
+    <string name="level_white">【老子不服】</string>
+    <string name="level_grey">【新手上路】</string>
     <string name="story">相传在距今2000多年前的秦朝\n秦始皇嬴政在预先为自己所修建的帝陵中\n埋藏了一柄由能工巧匠精心打造的金玉九连环\n用其锁住一箱秦始皇最为看重的宝物\n而当猎奇者一旦触碰到这柄金玉九连环\n只有在5分钟内完成破解 方可取出箱中宝物\n否则帝陵中的相关机括将在5分钟后被触发\n届时玉碎人亡
     </string>
 </resources>

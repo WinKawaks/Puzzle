@@ -97,7 +97,7 @@ public class RecordSelectHelper {
         if (cursor.getCount() > 0) {
             for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 section = new RecordBean();
-                String record = cursor.getString(RecordColumn.RECORD_TIME_COLUMN);
+                int record = cursor.getInt(RecordColumn.RECORD_TIME_COLUMN);
                 String currentTime = cursor.getString(RecordColumn.CREATE_TIME_COLUMN);
                 String step = cursor.getString(RecordColumn.STEP_COLUMN);
                 section.setRecord(record);
