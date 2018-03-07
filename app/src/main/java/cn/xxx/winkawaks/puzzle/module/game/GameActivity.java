@@ -6,9 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -367,6 +371,7 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                     mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                     musicSteps++;
                 }
+                remindTime(mTimer.getText().toString());
                 break;
             case R.id.btn_ring_2:
             case R.id.btn_ring_3:
@@ -403,6 +408,7 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         if (isFinish()) {
             finish = true;
             if (!timeShow) {
+                steps++;
                 remindTime(mTimer.getText().toString());
                 timeShow = true;
             }
@@ -481,9 +487,10 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         @Override
         public void run() {
             mTimer.setText(TimeUtil.getTime());
-            if (TimeUtil.getTime().charAt(0) == '1' && TimeUtil.getTime().charAt(1) >= '5') {
+            if (TimeUtil.getTime().charAt(0) == '0' && TimeUtil.getTime().charAt(1) >= '5') {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage(R.string.go_die)
+                builder.setTitle(R.string.challenge_failure)
+                    .setMessage(R.string.go_die)
                     .setNegativeButton(R.string.confirm, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -505,16 +512,31 @@ public class GameActivity extends Activity implements View.OnClickListener, View
     }
 
     private void remindTime(String time) {
+        StringBuffer sb = new StringBuffer();
+        if (steps < 10) {
+            sb = new StringBuffer("00").append(steps);
+        } else if (steps < 100) {
+            sb = new StringBuffer("0").append(steps);
+        } else if (steps < 1000) {
+            sb = new StringBuffer("").append(steps);
+        }
         RecordSelectHelper recordSelectHelper = new RecordSelectHelper(this);
         recordSelectHelper.open();
         RecordBean recordBean = new RecordBean();
         recordBean.setRecord(String.valueOf(TimeUtil.getMs(time)));
         recordBean.setCurrentTime(String.valueOf(System.currentTimeMillis()));
+        recordBean.setStep(sb.toString());
         recordSelectHelper.insertNewsInfo(recordBean);
         recordSelectHelper.close();
 
+        SpannableString spannableString = new SpannableString(getString(R.string.time_title) + time + "\n"
+            + getString(R.string.step_title) + steps);
+        ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#0099EE"));
+        spannableString.setSpan(colorSpan, 9, spannableString.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(getString(R.string.time_title) + time + "\n" + getString(R.string.step_title) + steps)
+        builder.setTitle(R.string.challenge_success)
+            .setMessage(spannableString)
             .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
@@ -698,13 +720,9 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.i("WinKawaks", "move");
                 curY = (int) event.getRawY();
                 break;
             case MotionEvent.ACTION_UP:
-                Log.i("WinKawaks", "up");
-                Log.i("WinKawaks", String.valueOf(posY));
-                Log.i("WinKawaks", String.valueOf(curY));
                 if (curY - posY > 15) {  //下划
                     if (mBtnRing1.Up && mBtnRing2.Up) {
                         mBtnRing1.setTranslationY(DOWN_DISTANCE);

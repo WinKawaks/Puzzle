@@ -54,6 +54,7 @@ public class RecordSelectHelper {
         ContentValues values = new ContentValues();
         values.put(RecordColumn.RECORD_TIME, record.getRecord());
         values.put(RecordColumn.CREATE_TIME, record.getCurrentTime());
+        values.put(RecordColumn.STEP, record.getStep());
         try {
             insertCount = mSqlDB.insert(Dao.RECORD_TABLE_INFO, null, values);
         } catch (Exception e) {
@@ -68,6 +69,7 @@ public class RecordSelectHelper {
         ContentValues values = new ContentValues();
         values.put(RecordColumn.RECORD_TIME, record.getRecord());
         values.put(RecordColumn.CREATE_TIME, record.getCurrentTime());
+        values.put(RecordColumn.STEP, record.getStep());
         String selection = RecordColumn.CREATE_TIME  + "= '" + record.getCurrentTime() + "'";
         insertCount = mSqlDB.update(Dao.RECORD_TABLE_INFO, values, selection, null);
         return insertCount > 0;
@@ -97,8 +99,10 @@ public class RecordSelectHelper {
                 section = new RecordBean();
                 String record = cursor.getString(RecordColumn.RECORD_TIME_COLUMN);
                 String currentTime = cursor.getString(RecordColumn.CREATE_TIME_COLUMN);
+                String step = cursor.getString(RecordColumn.STEP_COLUMN);
                 section.setRecord(record);
                 section.setCurrentTime(currentTime);
+                section.setStep(step);
                 list.add(section);
             }
         }

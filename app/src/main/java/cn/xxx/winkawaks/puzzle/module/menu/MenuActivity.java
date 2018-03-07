@@ -229,16 +229,20 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
                 int total = mContentSections.size() > 10 ? 10 : mContentSections.size();
                 StringBuffer stringBuffer = new StringBuffer();
                 for (int i = 0; i < total - 1; i++) {
-                    stringBuffer.append(i + 1);
-                    stringBuffer.append("." + "    ");
+                    stringBuffer.append(getCapsInt(i));
+                    stringBuffer.append(" " + getString(R.string.time_record));
                     stringBuffer.append(TimeUtil.getTime(Long.parseLong(mContentSections.get(i).getRecord())));
-                    stringBuffer.append("    " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
+                    stringBuffer.append(" " + getString(R.string.step_record));
+                    stringBuffer.append(mContentSections.get(i).getStep());
+                    stringBuffer.append(" " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
                     stringBuffer.append("\n");
                 }
-                stringBuffer.append(total);
-                stringBuffer.append("." + "    ");
+                stringBuffer.append(getCapsInt(total - 1));
+                stringBuffer.append(" " + getString(R.string.time_record));
                 stringBuffer.append(TimeUtil.getTime(Long.parseLong(mContentSections.get(total - 1).getRecord())));
-                stringBuffer.append("    " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
+                stringBuffer.append(" " + getString(R.string.step_record));
+                stringBuffer.append(mContentSections.get(total - 1).getStep());
+                stringBuffer.append(" " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(R.string.record_top_10);
                 builder.setMessage(stringBuffer)
@@ -261,5 +265,31 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
         Date date = new Date(time);
         String formatTime = format.format(date);
         return formatTime;
+    }
+
+    public static String getCapsInt(int i) {
+        switch (i) {
+            case 0:
+                return "壹";
+            case 1:
+                return "贰";
+            case 2:
+                return "叁";
+            case 3:
+                return "肆";
+            case 4:
+                return "伍";
+            case 5:
+                return "陆";
+            case 6:
+                return "柒";
+            case 7:
+                return "捌";
+            case 8:
+                return "玖";
+            case 9:
+                return "拾";
+        }
+        return "";
     }
 }

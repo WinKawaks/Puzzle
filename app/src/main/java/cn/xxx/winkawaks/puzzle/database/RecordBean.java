@@ -6,6 +6,7 @@ package cn.xxx.winkawaks.puzzle.database;
 
 public class RecordBean {
     private String record;
+    private String step;
     private String currentTime;
 
     public String getRecord() {
@@ -22,5 +23,13 @@ public class RecordBean {
 
     public void setCurrentTime(String currentTime) {
         this.currentTime = currentTime;
+    }
+
+    public String getStep() {
+        return step;
+    }
+
+    public void setStep(String step) {
+        this.step = step;
     }
 }
