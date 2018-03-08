@@ -370,7 +370,6 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                     mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                     musicSteps++;
                 }
-                remindTime(mTimer.getText().toString());
                 break;
             case R.id.btn_ring_2:
             case R.id.btn_ring_3:
