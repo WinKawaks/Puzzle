@@ -28,6 +28,9 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".module.graph.GraphActivity"/>
+
+        <activity
             android:name=".module.game.GameActivity"
             android:screenOrientation="landscape" />
 

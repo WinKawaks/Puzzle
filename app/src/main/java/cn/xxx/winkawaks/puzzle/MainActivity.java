@@ -19,7 +19,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences mSharedPreferences = getSharedPreferences("WinKawaks", Context.MODE_PRIVATE);
-        Boolean musicOn = mSharedPreferences.getBoolean("music", true);
+        Boolean musicOn = mSharedPreferences.getBoolean("music", false);
         if (musicOn) {
             Intent intent = new Intent(this, BGMService.class);
             startService(intent);

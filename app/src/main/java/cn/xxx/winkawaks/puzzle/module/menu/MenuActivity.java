@@ -12,9 +12,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.*;
 import android.widget.Button;
 import android.widget.Toast;
@@ -24,6 +24,7 @@ import cn.xxx.winkawaks.puzzle.database.RecordSelectHelper;
 import cn.xxx.winkawaks.puzzle.module.game.GameActivity;
 import cn.xxx.winkawaks.puzzle.module.setting.SettingActivity;
 import cn.xxx.winkawaks.puzzle.module.sound.BGMService;
+import cn.xxx.winkawaks.puzzle.module.utils.ColorTextUtil;
 import cn.xxx.winkawaks.puzzle.module.utils.TimeUtil;
 
 import java.text.SimpleDateFormat;
@@ -238,28 +239,35 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
                     stringBuffer.append(getCapsInt(i));
                     stringBuffer.append(" " + getString(R.string.time_record));
                     stringBuffer.append(TimeUtil.getTime(mContentSections.get(i).getRecord()));
+                    stringBuffer.append(" " + ColorTextUtil.getLevelText(mContext, TimeUtil.getTime(mContentSections.get(i).getRecord())));
+                    stringBuffer.append("\n");
+                    stringBuffer.append("      " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
                     stringBuffer.append(" " + getString(R.string.step_record));
                     stringBuffer.append(mContentSections.get(i).getStep());
-                    stringBuffer.append("\n");
-                    stringBuffer.append("     " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
                     stringBuffer.append("\n");
                 }
                 stringBuffer.append(getCapsInt(total - 1));
                 stringBuffer.append(" " + getString(R.string.time_record));
                 stringBuffer.append(TimeUtil.getTime(mContentSections.get(total - 1).getRecord()));
+                stringBuffer.append(" " + ColorTextUtil.getLevelText(mContext, TimeUtil.getTime(mContentSections.get(total - 1).getRecord())));
+                stringBuffer.append("\n");
+                stringBuffer.append("      " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
                 stringBuffer.append(" " + getString(R.string.step_record));
                 stringBuffer.append(mContentSections.get(total - 1).getStep());
-                stringBuffer.append("\n");
-                stringBuffer.append("     " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
 
                 SpannableString spannableString = new SpannableString(stringBuffer);
                 int perLength = spannableString.length() / total + 1;
-                Log.i("WinKawake", String.valueOf(spannableString.length()));
                 for (int i = 0; i < total; i++) {
-                    spannableString.setSpan(new RelativeSizeSpan(0.8f), perLength * i + 25,
-                        perLength * i + 45, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
-                    spannableString.setSpan(new StyleSpan(Typeface.ITALIC), perLength * i + 25,
-                        perLength * i + 45, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(new RelativeSizeSpan(1.2f), perLength * i,
+                        perLength * i + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#1E99FF")), perLength * i,
+                        perLength * i + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(new RelativeSizeSpan(0.8f), perLength * i + 26,
+                        perLength * i + 53, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(new StyleSpan(Typeface.ITALIC), perLength * i + 26,
+                        perLength * i + 53, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+                    spannableString.setSpan(ColorTextUtil.getLevelColor(mContext, TimeUtil.getTime(mContentSections.get(i).getRecord())), perLength * i + 14,
+                        perLength * i + 20, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
                 }
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -311,4 +319,5 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
         }
         return "";
     }
+
 }

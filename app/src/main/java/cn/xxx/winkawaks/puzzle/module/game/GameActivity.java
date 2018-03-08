@@ -370,6 +370,7 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                     mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                     musicSteps++;
                 }
+                remindTime(mTimer.getText().toString());
                 break;
             case R.id.btn_ring_2:
             case R.id.btn_ring_3:
@@ -527,9 +528,9 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         recordSelectHelper.insertNewsInfo(recordBean);
         recordSelectHelper.close();
 
-        SpannableString spannableString = new SpannableString(getString(R.string.time_title) + time
-            + "   " + ColorTextUtil.getLevelText(this, time) + "\n" + getString(R.string.step_title) + steps);
-        spannableString.setSpan(ColorTextUtil.getLevelColor(this, time), 16, 22, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        SpannableString spannableString = new SpannableString(getString(R.string.time_record) + time
+            + "   " + ColorTextUtil.getLevelText(this, time) + "\n" + getString(R.string.step_record) + steps);
+        spannableString.setSpan(ColorTextUtil.getLevelColor(this, time), 14, 20, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.challenge_success)

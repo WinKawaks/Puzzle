@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import cn.xxx.winkawaks.puzzle.MyApplication;
 import cn.xxx.winkawaks.puzzle.R;
+import cn.xxx.winkawaks.puzzle.module.graph.GraphActivity;
 import cn.xxx.winkawaks.puzzle.module.sound.BGMService;
 import cn.xxx.winkawaks.puzzle.module.utils.LaunchEmailUtil;
 
@@ -26,6 +27,7 @@ public class SettingActivity extends Activity implements View.OnClickListener, C
     private CheckBox mCBMusic;
     private CheckBox mCBSound;
     private TextView mTVEmail;
+    private TextView mTVGraph;
     private Button mBtnBack;
 
     @Override
@@ -40,9 +42,10 @@ public class SettingActivity extends Activity implements View.OnClickListener, C
         mCBMusic = (CheckBox) findViewById(R.id.checkbox_music);
         mCBSound = (CheckBox) findViewById(R.id.checkbox_sound);
         mTVEmail = (TextView) findViewById(R.id.email);
+        mTVGraph = (TextView) findViewById(R.id.graph);
         mBtnBack = (Button) findViewById(R.id.btn_back);
         SharedPreferences mSharedPreferences = getSharedPreferences("WinKawaks", Context.MODE_PRIVATE);
-        Boolean musicOn = mSharedPreferences.getBoolean("music", true);
+        Boolean musicOn = mSharedPreferences.getBoolean("music", false);
         Boolean soundOn = mSharedPreferences.getBoolean("sound", true);
         mCBMusic.setChecked(musicOn);
         mCBSound.setChecked(soundOn);
@@ -50,6 +53,7 @@ public class SettingActivity extends Activity implements View.OnClickListener, C
 
     private void initListener() {
         mTVEmail.setOnClickListener(this);
+        mTVGraph.setOnClickListener(this);
         mBtnBack.setOnClickListener(this);
         mCBMusic.setOnCheckedChangeListener(this);
         mCBSound.setOnCheckedChangeListener(this);
@@ -60,6 +64,9 @@ public class SettingActivity extends Activity implements View.OnClickListener, C
         switch (v.getId()) {
             case R.id.email:
                 sendEmails();
+                break;
+            case R.id.graph:
+                startActivity(new Intent(this, GraphActivity.class));
                 break;
             case R.id.btn_back:
                 this.finish();

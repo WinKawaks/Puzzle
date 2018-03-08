@@ -34,7 +34,7 @@ public class MyApplication extends Application {
             public void onActivityResumed(Activity activity) {
                 activityFront++;
                 SharedPreferences mSharedPreferences = getSharedPreferences("WinKawaks", Context.MODE_PRIVATE);
-                Boolean musicOn = mSharedPreferences.getBoolean("music", true);
+                Boolean musicOn = mSharedPreferences.getBoolean("music", false);
                 if (activityFront > 0 && musicOn) {
                     Intent intent = new Intent(MyApplication.this, BGMService.class);
                     startService(intent);
