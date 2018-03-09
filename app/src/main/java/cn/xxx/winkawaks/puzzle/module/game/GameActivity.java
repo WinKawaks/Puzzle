@@ -485,15 +485,17 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         public void run() {
             mTimer.setText(TimeUtil.getTime());
             if (TimeUtil.getTime().charAt(0) == '0' && TimeUtil.getTime().charAt(1) >= '5') {
+                mHandler.removeCallbacks(run);
+                mTimer.setText("05:00.00");
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(R.string.challenge_failure)
                     .setMessage(R.string.go_die)
                     .setNegativeButton(R.string.confirm, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        GameActivity.this.finish();
-                    }
-                });
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            GameActivity.this.finish();
+                        }
+                    });
                 builder.show();
             } else {
                 mHandler.post(run);
