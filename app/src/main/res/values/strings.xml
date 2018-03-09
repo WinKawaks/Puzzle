@@ -4,7 +4,7 @@
     <string name="background_music">背景音乐</string>
     <string name="start">开始</string>
     <string name="setting">设置</string>
-    <string name="record">记录</string>
+    <string name="record">纪录</string>
     <string name="sound">游戏音效</string>
     <string name="about_me">操作说明</string>
     <string name="introduction">①触碰到金玉九连环时，触发计时\n游戏开始。（中途不可暂停）\n②游戏触控生效区域仅为\n九只玉环的玉石表面。\n③当需要同时操作第1、2环时\n应对第1、2环区域进行上滑/下滑\n来控制其同时安装/卸下。</string>
@@ -22,18 +22,18 @@
     <string name="default_step">888</string>
     <string name="time_record">用时：</string>
     <string name="step_record">步数：</string>
-    <string name="no_record">暂无任何记录</string>
-    <string name="record_top_10">破解记录</string>
+    <string name="no_record">暂无任何纪录</string>
+    <string name="record_top_10">破解纪录</string>
     <string name="challenge_success">挑战成功</string>
     <string name="challenge_failure">玉碎</string>
-    <string name="level_gold">【一键封神】</string>
-    <string name="level_orange">【地表最强】</string>
-    <string name="level_green">【老司机范】</string>
-    <string name="level_purple">【霸气侧漏】</string>
-    <string name="level_blue">【速解高手】</string>
-    <string name="level_white">【老子不服】</string>
-    <string name="level_grey">【新手上路】</string>
-    <string name="introduce">程序开发：文末\n九连环交流QQ群：386 552 50\n九连环  百度贴吧</string>
+    <string name="level_gold">[一键封神]</string>
+    <string name="level_orange">[地表最强]</string>
+    <string name="level_green">[老司机范]</string>
+    <string name="level_purple">[霸气侧漏]</string>
+    <string name="level_blue">[速解高手]</string>
+    <string name="level_white">[老子不服]</string>
+    <string name="level_grey">[新手上路]</string>
+    <string name="introduce">程序开发：文末\n九连环交流QQ群：386 552 50\n九连环  百度贴吧\nVersion: 1.0</string>
     <string name="story">相传在距今2000多年前的秦朝\n秦始皇嬴政在预先为自己所修建的帝陵中\n埋藏了一柄由能工巧匠精心打造的金玉九连环\n用其锁住一箱秦始皇最为看重的宝物\n而当猎奇者一旦触碰到这柄金玉九连环\n只有在5分钟内完成破解 方可取出箱中宝物\n否则帝陵中的相关机括将在5分钟后被触发\n届时玉碎人亡
     </string>
 </resources>

@@ -241,9 +241,9 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
                     stringBuffer.append(TimeUtil.getTime(mContentSections.get(i).getRecord()));
                     stringBuffer.append(" " + ColorTextUtil.getLevelText(mContext, TimeUtil.getTime(mContentSections.get(i).getRecord())));
                     stringBuffer.append("\n");
-                    stringBuffer.append("      " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
-                    stringBuffer.append(" " + getString(R.string.step_record));
+                    stringBuffer.append("      " + getString(R.string.step_record));
                     stringBuffer.append(mContentSections.get(i).getStep());
+                    stringBuffer.append(" " + getFormatTime(Long.parseLong(mContentSections.get(i).getCurrentTime())));
                     stringBuffer.append("\n");
                 }
                 stringBuffer.append(getCapsInt(total - 1));
@@ -251,10 +251,9 @@ public class MenuActivity extends Activity implements View.OnClickListener, Gest
                 stringBuffer.append(TimeUtil.getTime(mContentSections.get(total - 1).getRecord()));
                 stringBuffer.append(" " + ColorTextUtil.getLevelText(mContext, TimeUtil.getTime(mContentSections.get(total - 1).getRecord())));
                 stringBuffer.append("\n");
-                stringBuffer.append("      " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
-                stringBuffer.append(" " + getString(R.string.step_record));
+                stringBuffer.append("      " + getString(R.string.step_record));
                 stringBuffer.append(mContentSections.get(total - 1).getStep());
-
+                stringBuffer.append(" " + getFormatTime(Long.parseLong(mContentSections.get(total - 1).getCurrentTime())));
                 SpannableString spannableString = new SpannableString(stringBuffer);
                 int perLength = spannableString.length() / total + 1;
                 for (int i = 0; i < total; i++) {
