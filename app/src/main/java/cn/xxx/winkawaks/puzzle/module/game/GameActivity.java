@@ -12,7 +12,6 @@ import android.support.constraint.ConstraintLayout;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -370,6 +369,7 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                     mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                     musicSteps++;
                 }
+                steps++;
                 break;
             case R.id.btn_ring_2:
             case R.id.btn_ring_3:
@@ -400,13 +400,13 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                         mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                         musicSteps++;
                     }
+                    steps++;
                 }
                 break;
         }
         if (isFinish()) {
             finish = true;
             if (!timeShow) {
-                steps++;
                 remindTime(mTimer.getText().toString());
                 timeShow = true;
             }
@@ -417,7 +417,6 @@ public class GameActivity extends Activity implements View.OnClickListener, View
             mStep.setVisibility(View.INVISIBLE);
             mHandler.removeCallbacks(run);
         } else {
-            steps++;
             StringBuffer sb = new StringBuffer();
             if (steps < 10) {
                 sb = new StringBuffer("00").append(steps);
@@ -704,7 +703,6 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         boolean intercept = false;
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.i("WinKawaks", "down");
                 posY = (int) event.getRawY();
                 start = isStart() && steps == 0;
                 if (start) {
@@ -741,10 +739,10 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                             mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                             musicSteps++;
                         }
+                        steps++;
                         if (isFinish()) {
                             finish = true;
                             if (!timeShow) {
-                                steps++;
                                 remindTime(mTimer.getText().toString());
                                 timeShow = true;
                             }
@@ -755,7 +753,6 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                             mStep.setVisibility(View.INVISIBLE);
                             mHandler.removeCallbacks(run);
                         } else {
-                            steps++;
                             StringBuffer sb = new StringBuffer();
                             if (steps < 10) {
                                 sb = new StringBuffer("00").append(steps);
@@ -788,10 +785,10 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                             mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
                             musicSteps++;
                         }
+                        steps++;
                         if (isFinish()) {
                             finish = true;
                             if (!timeShow) {
-                                steps++;
                                 remindTime(mTimer.getText().toString());
                                 timeShow = true;
                             }
@@ -802,7 +799,6 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                             mStep.setVisibility(View.INVISIBLE);
                             mHandler.removeCallbacks(run);
                         } else {
-                            steps++;
                             StringBuffer sb = new StringBuffer();
                             if (steps < 10) {
                                 sb = new StringBuffer("00").append(steps);
