@@ -22,7 +22,7 @@ public class ColorTextUtil {
             return context.getString(R.string.level_purple);
         } else if (ms < 180000) {
             return context.getString(R.string.level_blue);
-        } else if (ms < 240000) {
+        } else if (ms < 300000) {
             return context.getString(R.string.level_white);
         } else {
             return context.getString(R.string.level_grey);
@@ -41,7 +41,7 @@ public class ColorTextUtil {
             return new ForegroundColorSpan(Color.parseColor("#AA22FF"));
         } else if (ms < 180000) {
             return new ForegroundColorSpan(Color.parseColor("#1E99FF"));
-        } else if (ms < 240000) {
+        } else if (ms < 300000) {
             return new ForegroundColorSpan(Color.parseColor("#FFFFFF"));
         } else {
             return new ForegroundColorSpan(Color.parseColor("#CCCCCC"));

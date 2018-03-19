@@ -70,6 +70,7 @@ public class GameActivity extends Activity implements View.OnClickListener, View
 
     private static int DOWN_DISTANCE = 125;
     private static int LEFT_DISTANCE = -17;
+    private static int TOUCH_DISTANCE = 30;
     //private boolean ring1_touch = false;
     //private boolean ring2_touch = false;
     private int posY = 0;
@@ -95,6 +96,13 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         mBtnRing9.setOnClickListener(this);
         mBtnRing1.setOnTouchListener(this);
         mBtnRing2.setOnTouchListener(this);
+        mBtnRing3.setOnTouchListener(this);
+        mBtnRing4.setOnTouchListener(this);
+        mBtnRing5.setOnTouchListener(this);
+        mBtnRing6.setOnTouchListener(this);
+        mBtnRing7.setOnTouchListener(this);
+        mBtnRing8.setOnTouchListener(this);
+        mBtnRing9.setOnTouchListener(this);
     }
 
     private void initView() {
@@ -484,9 +492,9 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         @Override
         public void run() {
             mTimer.setText(TimeUtil.getTime());
-            if (TimeUtil.getTime().charAt(0) == '0' && TimeUtil.getTime().charAt(1) >= '5') {
+            if (TimeUtil.getTime().charAt(0) == '1' && TimeUtil.getTime().charAt(1) >= '0') {
                 mHandler.removeCallbacks(run);
-                mTimer.setText("05:00.00");
+                mTimer.setText("10:00.00");
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
                 builder.setTitle(R.string.challenge_failure)
                     .setMessage(R.string.go_die)
@@ -706,6 +714,7 @@ public class GameActivity extends Activity implements View.OnClickListener, View
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 posY = (int) event.getRawY();
+                curY = (int) event.getRawY();
                 start = isStart() && steps == 0;
                 if (start) {
                     finish = false;
@@ -720,98 +729,235 @@ public class GameActivity extends Activity implements View.OnClickListener, View
                 curY = (int) event.getRawY();
                 break;
             case MotionEvent.ACTION_UP:
-                if (curY - posY > 15) {  //下划
-                    if (mBtnRing1.Up && mBtnRing2.Up) {
-                        mBtnRing1.setTranslationY(DOWN_DISTANCE);
-                        mBtnRing1.setTranslationX(LEFT_DISTANCE);
-                        mBtnRing2.setTranslationY(DOWN_DISTANCE);
-                        mBtnRing2.setTranslationX(LEFT_DISTANCE);
-                        mIVPole1.setTranslationY(DOWN_DISTANCE);
-                        mIVPole1.setTranslationX(LEFT_DISTANCE);
-                        mIVPole2.setTranslationY(DOWN_DISTANCE);
-                        mIVPole2.setTranslationX(LEFT_DISTANCE);
-                        mBtnRing1.setBackgroundResource(R.mipmap.first_down_ring);
-                        mBtnRing2.setBackgroundResource(R.mipmap.other_down_ring);
-                        mIVPole1.setBackgroundResource(R.mipmap.down_pole);
-                        mIVPole2.setBackgroundResource(R.mipmap.down_pole);
-                        intercept = true;
-                        mBtnRing1.Up = !mBtnRing1.Up;
-                        mBtnRing2.Up = !mBtnRing2.Up;
-                        if (soundOn) {
-                            mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
-                            musicSteps++;
-                        }
-                        steps++;
-                        if (isFinish()) {
-                            finish = true;
-                            if (!timeShow) {
-                                remindTime(mTimer.getText().toString());
-                                timeShow = true;
+                if (curY - posY > TOUCH_DISTANCE) {  //下划
+                    switch (v.getId()) {
+                        case R.id.btn_ring_1:
+                            if (mBtnRing1.Up && mBtnRing2.Up) {
+                                mBtnRing1.setTranslationY(DOWN_DISTANCE);
+                                mBtnRing1.setTranslationX(LEFT_DISTANCE);
+                                mBtnRing2.setTranslationY(DOWN_DISTANCE);
+                                mBtnRing2.setTranslationX(LEFT_DISTANCE);
+                                mIVPole1.setTranslationY(DOWN_DISTANCE);
+                                mIVPole1.setTranslationX(LEFT_DISTANCE);
+                                mIVPole2.setTranslationY(DOWN_DISTANCE);
+                                mIVPole2.setTranslationX(LEFT_DISTANCE);
+                                mBtnRing1.setBackgroundResource(R.mipmap.first_down_ring);
+                                mBtnRing2.setBackgroundResource(R.mipmap.other_down_ring);
+                                mIVPole1.setBackgroundResource(R.mipmap.down_pole);
+                                mIVPole2.setBackgroundResource(R.mipmap.down_pole);
+                                intercept = true;
+                                mBtnRing1.Up = !mBtnRing1.Up;
+                                mBtnRing2.Up = !mBtnRing2.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else if (mBtnRing1.Up && !mBtnRing2.Up) {
+                                mBtnRing1.setTranslationY(DOWN_DISTANCE);
+                                mBtnRing1.setTranslationX(LEFT_DISTANCE);
+                                mIVPole1.setTranslationY(DOWN_DISTANCE);
+                                mIVPole1.setTranslationX(LEFT_DISTANCE);
+                                mBtnRing1.setBackgroundResource(R.mipmap.first_down_ring);
+                                mIVPole1.setBackgroundResource(R.mipmap.down_pole);
+                                intercept = true;
+                                mBtnRing1.Up = !mBtnRing1.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else {
+                                intercept = true;
                             }
-                        }
-                        if (finish) {
-                            steps = 0;
-                            mTimer.setVisibility(View.INVISIBLE);
-                            mStep.setVisibility(View.INVISIBLE);
-                            mHandler.removeCallbacks(run);
-                        } else {
-                            StringBuffer sb = new StringBuffer();
-                            if (steps < 10) {
-                                sb = new StringBuffer("00").append(steps);
-                            } else if (steps < 100) {
-                                sb = new StringBuffer("0").append(steps);
-                            } else if (steps < 1000) {
-                                sb = new StringBuffer("").append(steps);
+                            break;
+                        case R.id.btn_ring_2:
+                            if (mBtnRing1.Up && mBtnRing2.Up) {
+                                mBtnRing1.setTranslationY(DOWN_DISTANCE);
+                                mBtnRing1.setTranslationX(LEFT_DISTANCE);
+                                mBtnRing2.setTranslationY(DOWN_DISTANCE);
+                                mBtnRing2.setTranslationX(LEFT_DISTANCE);
+                                mIVPole1.setTranslationY(DOWN_DISTANCE);
+                                mIVPole1.setTranslationX(LEFT_DISTANCE);
+                                mIVPole2.setTranslationY(DOWN_DISTANCE);
+                                mIVPole2.setTranslationX(LEFT_DISTANCE);
+                                mBtnRing1.setBackgroundResource(R.mipmap.first_down_ring);
+                                mBtnRing2.setBackgroundResource(R.mipmap.other_down_ring);
+                                mIVPole1.setBackgroundResource(R.mipmap.down_pole);
+                                mIVPole2.setBackgroundResource(R.mipmap.down_pole);
+                                intercept = true;
+                                mBtnRing1.Up = !mBtnRing1.Up;
+                                mBtnRing2.Up = !mBtnRing2.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else {
+                                intercept = true;
                             }
-                            mStep.setText(sb.toString());
-                        }
+                            break;
+                        case R.id.btn_ring_3:
+                        case R.id.btn_ring_4:
+                        case R.id.btn_ring_5:
+                        case R.id.btn_ring_6:
+                        case R.id.btn_ring_7:
+                        case R.id.btn_ring_8:
+                        case R.id.btn_ring_9:
+                            if (movePermission(idToNummap.get(v.getId()))) {
+                                if (((RingButton) v).Up) {
+                                    v.setTranslationY(DOWN_DISTANCE);
+                                    v.setTranslationX(LEFT_DISTANCE);
+                                    idToPolemap.get(v.getId()).setTranslationY(DOWN_DISTANCE);
+                                    idToPolemap.get(v.getId()).setTranslationX(LEFT_DISTANCE);
+                                    ((RingButton) v).setBackgroundResource(R.mipmap.other_down_ring);
+                                    idToPolemap.get(v.getId()).setBackgroundResource(R.mipmap.down_pole);
+                                    intercept = true;
+                                    ((RingButton) v).Up = !((RingButton) v).Up;
+                                    if (soundOn) {
+                                        mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                        musicSteps++;
+                                    }
+                                    steps++;
+                                } else {
+                                    intercept = true;
+                                }
+                            }
+                            break;
                     }
-                } else if (posY - curY > 15) {  //上划
-                    if (!mBtnRing1.Up && !mBtnRing2.Up) {
-                        mBtnRing1.setTranslationY(0);
-                        mBtnRing1.setTranslationX(0);
-                        mBtnRing2.setTranslationY(0);
-                        mBtnRing2.setTranslationX(0);
-                        mIVPole1.setTranslationY(0);
-                        mIVPole1.setTranslationX(0);
-                        mIVPole2.setTranslationY(0);
-                        mIVPole2.setTranslationX(0);
-                        mBtnRing1.setBackgroundResource(R.mipmap.first_up_ring);
-                        mBtnRing2.setBackgroundResource(R.mipmap.other_up_ring);
-                        mIVPole1.setBackgroundResource(R.mipmap.up_pole);
-                        mIVPole2.setBackgroundResource(R.mipmap.up_pole);
-                        intercept = true;
-                        mBtnRing1.Up = !mBtnRing1.Up;
-                        mBtnRing2.Up = !mBtnRing2.Up;
-                        if (soundOn) {
-                            mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
-                            musicSteps++;
-                        }
-                        steps++;
-                        if (isFinish()) {
-                            finish = true;
-                            if (!timeShow) {
-                                remindTime(mTimer.getText().toString());
-                                timeShow = true;
+                } else if (posY - curY > TOUCH_DISTANCE) {  //上划
+                    switch (v.getId()) {
+                        case R.id.btn_ring_1:
+                            if (!mBtnRing1.Up && !mBtnRing2.Up) {
+                                mBtnRing1.setTranslationY(0);
+                                mBtnRing1.setTranslationX(0);
+                                mBtnRing2.setTranslationY(0);
+                                mBtnRing2.setTranslationX(0);
+                                mIVPole1.setTranslationY(0);
+                                mIVPole1.setTranslationX(0);
+                                mIVPole2.setTranslationY(0);
+                                mIVPole2.setTranslationX(0);
+                                mBtnRing1.setBackgroundResource(R.mipmap.first_up_ring);
+                                mBtnRing2.setBackgroundResource(R.mipmap.other_up_ring);
+                                mIVPole1.setBackgroundResource(R.mipmap.up_pole);
+                                mIVPole2.setBackgroundResource(R.mipmap.up_pole);
+                                intercept = true;
+                                mBtnRing1.Up = !mBtnRing1.Up;
+                                mBtnRing2.Up = !mBtnRing2.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else if (!mBtnRing1.Up && mBtnRing2.Up) {
+                                mBtnRing1.setTranslationY(0);
+                                mBtnRing1.setTranslationX(0);
+                                mIVPole1.setTranslationY(0);
+                                mIVPole1.setTranslationX(0);
+                                mBtnRing1.setBackgroundResource(R.mipmap.first_up_ring);
+                                mIVPole1.setBackgroundResource(R.mipmap.up_pole);
+                                intercept = true;
+                                mBtnRing1.Up = !mBtnRing1.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else {
+                                intercept = true;
                             }
-                        }
-                        if (finish) {
-                            steps = 0;
-                            mTimer.setVisibility(View.INVISIBLE);
-                            mStep.setVisibility(View.INVISIBLE);
-                            mHandler.removeCallbacks(run);
-                        } else {
-                            StringBuffer sb = new StringBuffer();
-                            if (steps < 10) {
-                                sb = new StringBuffer("00").append(steps);
-                            } else if (steps < 100) {
-                                sb = new StringBuffer("0").append(steps);
-                            } else if (steps < 1000) {
-                                sb = new StringBuffer("").append(steps);
+                            break;
+                        case R.id.btn_ring_2:
+                            if (!mBtnRing1.Up && !mBtnRing2.Up) {
+                                mBtnRing1.setTranslationY(0);
+                                mBtnRing1.setTranslationX(0);
+                                mBtnRing2.setTranslationY(0);
+                                mBtnRing2.setTranslationX(0);
+                                mIVPole1.setTranslationY(0);
+                                mIVPole1.setTranslationX(0);
+                                mIVPole2.setTranslationY(0);
+                                mIVPole2.setTranslationX(0);
+                                mBtnRing1.setBackgroundResource(R.mipmap.first_up_ring);
+                                mBtnRing2.setBackgroundResource(R.mipmap.other_up_ring);
+                                mIVPole1.setBackgroundResource(R.mipmap.up_pole);
+                                mIVPole2.setBackgroundResource(R.mipmap.up_pole);
+                                intercept = true;
+                                mBtnRing1.Up = !mBtnRing1.Up;
+                                mBtnRing2.Up = !mBtnRing2.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else if (mBtnRing1.Up && !mBtnRing2.Up) {
+                                mBtnRing2.setTranslationY(0);
+                                mBtnRing2.setTranslationX(0);
+                                mIVPole2.setTranslationY(0);
+                                mIVPole2.setTranslationX(0);
+                                mBtnRing2.setBackgroundResource(R.mipmap.other_up_ring);
+                                mIVPole2.setBackgroundResource(R.mipmap.up_pole);
+                                intercept = true;
+                                mBtnRing2.Up = !mBtnRing2.Up;
+                                if (soundOn) {
+                                    mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                    musicSteps++;
+                                }
+                                steps++;
+                            } else {
+                                intercept = true;
                             }
-                            mStep.setText(sb.toString());
-                        }
+                            break;
+                        case R.id.btn_ring_3:
+                        case R.id.btn_ring_4:
+                        case R.id.btn_ring_5:
+                        case R.id.btn_ring_6:
+                        case R.id.btn_ring_7:
+                        case R.id.btn_ring_8:
+                        case R.id.btn_ring_9:
+                            if (movePermission(idToNummap.get(v.getId()))) {
+                                if (!((RingButton) v).Up) {
+                                    v.setTranslationY(0);
+                                    v.setTranslationX(0);
+                                    idToPolemap.get(v.getId()).setTranslationY(0);
+                                    idToPolemap.get(v.getId()).setTranslationX(0);
+                                    ((RingButton) v).setBackgroundResource(R.mipmap.other_up_ring);
+                                    idToPolemap.get(v.getId()).setBackgroundResource(R.mipmap.up_pole);
+                                    intercept = true;
+                                    ((RingButton) v).Up = !((RingButton) v).Up;
+                                    if (soundOn) {
+                                        mSoundPool.play(RhythmUtil.RHYTHM[musicSteps % 114]);
+                                        musicSteps++;
+                                    }
+                                    steps++;
+                                }
+                            } else {
+                                intercept = true;
+                            }
+                            break;
                     }
+                }
+                if (isFinish()) {
+                    finish = true;
+                    if (!timeShow) {
+                        remindTime(mTimer.getText().toString());
+                        timeShow = true;
+                    }
+                }
+                if (finish) {
+                    steps = 0;
+                    mTimer.setVisibility(View.INVISIBLE);
+                    mStep.setVisibility(View.INVISIBLE);
+                    mHandler.removeCallbacks(run);
+                } else {
+                    StringBuffer sb = new StringBuffer();
+                    if (steps < 10) {
+                        sb = new StringBuffer("00").append(steps);
+                    } else if (steps < 100) {
+                        sb = new StringBuffer("0").append(steps);
+                    } else if (steps < 1000) {
+                        sb = new StringBuffer("").append(steps);
+                    }
+                    mStep.setText(sb.toString());
                 }
                 break;
         }
